@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <AnchorPane prefHeight="55.0" prefWidth="1200.0" style="-fx-background-color: #2D5E8C;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="WHITE" layoutX="63.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Информационная система &quot;Продажа авиабилетов&quot;" wrappingWidth="664.13671875">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="38.0" fitWidth="39.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/plane_icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </top>
+   <left>
+      <AnchorPane prefHeight="701.0" prefWidth="226.0" style="-fx-background-color: F5F5F5; -fx-border-width: 2 2 0 0; -fx-border-color: #2D5E8C; -fx-border-style: none none solid hidden;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="745.0" prefWidth="226.0" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label id="record-sales" maxWidth="1.7976931348623157E308" prefHeight="60.0" text="Продажа билета" wrapText="true" />
+                  <Label id="record-sales" maxWidth="1.7976931348623157E308" prefHeight="60.0" text="Бронирование билета" wrapText="true" />
+                  <Label id="record-sales" maxWidth="1.7976931348623157E308" prefHeight="60.0" text="Поиск места на рейс" wrapText="true" />
+                  <Label id="record-sales" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="226.0" text="Получение списка свободных мест на рейс" wrapText="true" />
+                  <Label id="record-sales" maxWidth="1.7976931348623157E308" prefHeight="69.0" prefWidth="226.0" text="Подробная информация о рейсе" wrapText="true" />
+                  <Label id="record-sales" maxWidth="1.7976931348623157E308" prefHeight="60.0" text="Список проданных мест" wrapText="true" />
+                  <Label id="record-sales" maxWidth="1.7976931348623157E308" prefHeight="60.0" text="Проверка наличия брони" wrapText="true" />
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" layoutY="728.0" style="-fx-background-color: #6194C6;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="MAI 2016" textAlignment="CENTER" wrappingWidth="76.87109375" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>
