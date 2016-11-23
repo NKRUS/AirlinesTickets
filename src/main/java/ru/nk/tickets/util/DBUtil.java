@@ -12,7 +12,7 @@ import java.util.Properties;
  * Created by NK on 13.11.2016.
  */
 public class DBUtil {
-    private static final Properties prop = new Properties();
+    static final Properties prop = new Properties();
     static {
         try {
             InputStream input = Thread.currentThread().getContextClassLoader().
@@ -64,6 +64,33 @@ public class DBUtil {
             }
         } catch (SQLException e){
             throw e;
+        }
+    }
+
+    public static void dbExecuteUpdateBatch(String[] sqlStmts) throws SQLException {
+        Statement stmt = null;
+        try {
+            //Подключаемся к базе
+            dbConnect();
+            //Создать Statement
+            stmt = conn.createStatement();
+            for (String query : sqlStmts) {
+                stmt.addBatch(query);
+            }
+            stmt.executeBatch();
+
+        } catch (SQLException e) {
+            System.out.println("Problem occurred at executeUpdate operation : " + e);
+            throw e;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (stmt != null) {
+                //Закрыть statement
+                stmt.close();
+            }
+            //Закрыть connection
+            dbDisconnect();
         }
     }
 

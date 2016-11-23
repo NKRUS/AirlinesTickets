@@ -14,8 +14,8 @@ public class FlightDAO {
     public static ObservableList<FlightSearchResult> searchFlights(City from, City whereTo, Date date, PlaceClass placeClass) throws SQLException, ClassNotFoundException{
         String selectStmt = "SELECT * FROM flights f\n" +
                 "INNER JOIN prices_and_places pap\n" +
-                "ON f.id = pap.flight_id AND pap.class_id = "+placeClass.getClass_id()+"\n" +
-                "WHERE f.departure_date = '"+date+"' AND f.departure_city_id = "+from.getCity_id()+" AND f.arrival_city_id = "+whereTo.getCity_id()+"\n" +
+                "ON f.id = pap.flight_id AND pap.class_id = "+placeClass.getClass_id()+" AND pap.free_places_count>0\n"+
+                "WHERE f.departure_date = '"+date+"' AND f.departure_city_id = "+from.getCity_id()+" AND f.arrival_city_id = "+whereTo.getCity_id()+"\n"+
                 "ORDER BY f.departure_time ASC;";
 
 

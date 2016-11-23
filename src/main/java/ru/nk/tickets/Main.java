@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import ru.nk.tickets.controller.MainLayoutController;
 import ru.nk.tickets.controller.ScreensController;
 
 /**
@@ -21,6 +22,10 @@ public class Main extends Application {
     public static final String TICKET_SALE_SCREEN = "TicketSale";
     public static final String TICKET_SALE_SCREEN_FXML =
             "/ru/nk/tickets/fxml/TicketSale.fxml";
+    public static final String SEARCHED_TICKET_BLOCK_FXML = "/ru/nk/tickets/fxml/SearchedTicketBlock.fxml";
+    public static final String MAKE_ORDER_FXML = "/ru/nk/tickets/fxml/MakeOrder.fxml";
+    public static final String MAKE_ORDER = "MakeOrder";
+    public static MainLayoutController controller;
 
     public static void main(String[] args) {
         launch(args);
@@ -42,6 +47,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource(MAIN_SCREEN_FXML));
         Parent root = loader.load();
+        controller = loader.getController();
         Scene scene = new Scene(root);
         primaryStage.setTitle("Информационная система - Продажа авиабилетов");
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/ru/nk/tickets/image/mai_logo.png")));

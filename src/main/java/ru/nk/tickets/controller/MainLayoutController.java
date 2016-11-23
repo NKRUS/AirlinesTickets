@@ -1,8 +1,10 @@
 package ru.nk.tickets.controller;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import ru.nk.tickets.Main;
+import ru.nk.tickets.model.FlightSearchResult;
 
 import java.io.IOException;
 
@@ -15,7 +17,7 @@ public class MainLayoutController  {
     @FXML
     private AnchorPane mainContent;
 
-    private ScreensController myController;
+    ScreensController myController;
 
     @FXML
     public void initialize() {
@@ -47,6 +49,7 @@ public class MainLayoutController  {
             myController.setScreen(Main.LOOK_FOR_SEAT_SCREEN);
         }
     }
+
 
     //any required method here
 }

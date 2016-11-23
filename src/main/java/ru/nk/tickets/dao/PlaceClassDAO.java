@@ -38,4 +38,30 @@ public class PlaceClassDAO {
         }
         return placeClasses;
     }
+
+    private static PlaceClass getPlaceClassFromResultSet(ResultSet rs) throws SQLException {
+        PlaceClass placeClass = null;
+        if (rs.next()){
+            placeClass = new PlaceClass();
+            placeClass.setClass_id(rs.getInt("id"));
+            placeClass.setClass_title(rs.getString("class"));
+        }
+        return placeClass;
+    }
+
+    public static PlaceClass getPlaceClassById(int id) throws SQLException, ClassNotFoundException {
+        String selectStmt = "SELECT * FROM place_classes WHERE id="+id;
+
+        try{
+            ResultSet rsPlaceClasses = DBUtil.dbExecuteQuery(selectStmt);
+            PlaceClass placeClass = getPlaceClassFromResultSet(rsPlaceClasses);
+            return placeClass;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }

@@ -40,4 +40,9 @@ public class Document {
     public void setDocument_type(String document_type) {
         this.document_type.set(document_type);
     }
+
+    @Override
+    public String toString() {
+        return getDocument_type();
+    }
 }

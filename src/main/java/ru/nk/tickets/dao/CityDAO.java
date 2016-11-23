@@ -41,4 +41,30 @@ public class CityDAO {
         }
         return cityList;
     }
+
+    private static City getCityFromResultSet(ResultSet rs) throws SQLException {
+        City city = null;
+        if (rs.next()){
+            city = new City();
+            city.setCity_id(rs.getInt("id"));
+            city.setCity(rs.getString("city"));
+        }
+        return city;
+    }
+
+    public static City getCityById(int id) throws SQLException, ClassNotFoundException {
+        String selectStmt = "SELECT * FROM cities WHERE id="+id;
+
+        try{
+            ResultSet rsCity = DBUtil.dbExecuteQuery(selectStmt);
+            City city = getCityFromResultSet(rsCity);
+            return city;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }

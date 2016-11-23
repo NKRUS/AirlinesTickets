@@ -14,7 +14,7 @@ public class Order {
     private StringProperty email;
     private BooleanProperty payed;
     private IntegerProperty document_id;
-    private IntegerProperty document_number;
+    private StringProperty document_number;
 
     public Order(){
         order_id = new SimpleIntegerProperty();
@@ -25,7 +25,7 @@ public class Order {
         email = new SimpleStringProperty();
         payed = new SimpleBooleanProperty();
         document_id = new SimpleIntegerProperty();
-        document_number = new SimpleIntegerProperty();
+        document_number = new SimpleStringProperty();
     }
 
     public int getOrder_id() {
@@ -124,15 +124,15 @@ public class Order {
         this.document_id.set(document_id);
     }
 
-    public int getDocument_number() {
+    public String getDocument_number() {
         return document_number.get();
     }
 
-    public IntegerProperty document_numberProperty() {
+    public StringProperty document_numberProperty() {
         return document_number;
     }
 
-    public void setDocument_number(int document_number) {
+    public void setDocument_number(String document_number) {
         this.document_number.set(document_number);
     }
 }

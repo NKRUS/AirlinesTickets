@@ -18,7 +18,7 @@ public class Passenger {
     private BooleanProperty isMan;
     private SimpleObjectProperty<Date> date_of_birth;
     private IntegerProperty document_id;
-    private IntegerProperty document_number;
+    private StringProperty document_number;
 
 
     public Passenger() {
@@ -32,7 +32,7 @@ public class Passenger {
         isMan = new SimpleBooleanProperty();
         date_of_birth = new SimpleObjectProperty<Date>();
         document_id = new SimpleIntegerProperty();
-        document_number = new SimpleIntegerProperty();
+        document_number = new SimpleStringProperty();
 
     }
 
@@ -157,15 +157,15 @@ public class Passenger {
         this.document_id.set(document_id);
     }
 
-    public int getDocument_number() {
+    public String getDocument_number() {
         return document_number.get();
     }
 
-    public IntegerProperty document_numberProperty() {
+    public StringProperty document_numberProperty() {
         return document_number;
     }
 
-    public void setDocument_number(int document_number) {
+    public void setDocument_number(String document_number) {
         this.document_number.set(document_number);
     }
 }
