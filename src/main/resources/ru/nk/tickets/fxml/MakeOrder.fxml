@@ -143,7 +143,7 @@
             <Font size="15.0" />
          </font>
       </Text>
-      <Button layoutX="941.0" layoutY="696.0" mnemonicParsing="false" onAction="#acceptOrder" prefHeight="40.0" prefWidth="95.0" text="Оформить" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <Button fx:id="acceptButton" layoutX="941.0" layoutY="696.0" mnemonicParsing="false" onAction="#acceptOrder" prefHeight="40.0" prefWidth="95.0" text="Оформить" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font size="15.0" />
          </font>

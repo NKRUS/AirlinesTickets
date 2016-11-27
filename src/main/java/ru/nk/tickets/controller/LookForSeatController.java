@@ -11,7 +11,7 @@ public class LookForSeatController{
     ScreensController myController;
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         // TODO
     }
 

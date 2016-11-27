@@ -25,6 +25,16 @@ public class Main extends Application {
     public static final String SEARCHED_TICKET_BLOCK_FXML = "/ru/nk/tickets/fxml/SearchedTicketBlock.fxml";
     public static final String MAKE_ORDER_FXML = "/ru/nk/tickets/fxml/MakeOrder.fxml";
     public static final String MAKE_ORDER = "MakeOrder";
+    public static final String PRINT_TICKET_FXML = "/ru/nk/tickets/fxml/PrintTicket.fxml";
+    public static final String PRINT_TICKET = "PrintTicket";
+    public static final String PASSENGERS_ARCHIVE = "PassengersArchive";
+    public static final String PASSENGERS_ARCHIVE_FXML = "/ru/nk/tickets/fxml/PassengersArchive.fxml";
+    public static final String RESERVE_SCREEN = "Reserve";
+    public static final String RESERVE_SCREEN_FXML = "/ru/nk/tickets/fxml/Reserve.fxml";
+    public static final String RESERVE_INFORMATION_ADDING = "ReserveInformationAdding";
+    public static final String RESERVE_INFORMATION_ADDING_FXML = "/ru/nk/tickets/fxml/ReserveInformationAdding.fxml";
+    public static final String RESERVE_RESULT_FXML = "/ru/nk/tickets/fxml/ReserveResult.fxml";
+    public static final String RESERVE_RESULT = "ReserveResult";
     public static MainLayoutController controller;
 
     public static void main(String[] args) {
@@ -50,7 +60,7 @@ public class Main extends Application {
         controller = loader.getController();
         Scene scene = new Scene(root);
         primaryStage.setTitle("Информационная система - Продажа авиабилетов");
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/ru/nk/tickets/image/mai_logo.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/ru/nk/tickets/image/plane_icon.png")));
         primaryStage.setScene(scene);
         primaryStage.show();
     }

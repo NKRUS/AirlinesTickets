@@ -1,8 +1,6 @@
 package ru.nk.tickets.controller;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,19 +26,17 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.ArrayList;
 
 /**
  * Created by NK on 14.11.2016.
  */
-public class TicketSaleController implements SearchableTicketScreen {
-    final ToggleGroup group = new ToggleGroup();
+public class ReserveController implements SearchableTicketScreen {
+    private final ToggleGroup group = new ToggleGroup();
     private ObservableList<City> cities;
-    public static ObservableList<FlightSearchResult> preOrder = FXCollections.observableArrayList();
+    public static ObservableList<FlightSearchResult> preReserve = FXCollections.observableArrayList();
     public static boolean isOneWay = true;
-    ObservableList<FlightSearchResult> listForward = null;
-    ObservableList<FlightSearchResult> listBackward = null;
+    private ObservableList<FlightSearchResult> listForward = null;
+    private ObservableList<FlightSearchResult> listBackward = null;
 
     @FXML
     private RadioButton oneWay, bothWays;
@@ -55,7 +51,7 @@ public class TicketSaleController implements SearchableTicketScreen {
     @FXML
     private Text titleOfResult;
 
-    ScreensController myController;
+    private ScreensController myController;
 
     @FXML
     private void initialize() {
@@ -63,17 +59,17 @@ public class TicketSaleController implements SearchableTicketScreen {
     }
 
     @Override
-    public void addToOrder(FlightSearchResult flightSearchResult){
-        preOrder.add(flightSearchResult);
+    public void addToOrder(FlightSearchResult flightSearchResult){ //TODO Продолжение брони
+        preReserve.add(flightSearchResult);
 
-        if((isOneWay && preOrder.size()==1)||(!isOneWay && preOrder.size()==2)){
-                Main.controller.currentScreen = Main.MAKE_ORDER;
-                Main.controller.myController.loadScreen(Main.MAKE_ORDER,
-                        Main.MAKE_ORDER_FXML);
-                Main.controller.myController.setScreen(Main.MAKE_ORDER);
+        if((isOneWay && preReserve.size()==1)||(!isOneWay && preReserve.size()==2)){
+            Main.controller.currentScreen = Main.RESERVE_INFORMATION_ADDING;
+            Main.controller.myController.loadScreen(Main.RESERVE_INFORMATION_ADDING,
+                    Main.RESERVE_INFORMATION_ADDING_FXML);
+            Main.controller.myController.setScreen(Main.RESERVE_INFORMATION_ADDING);
         }
 
-        if (!isOneWay && preOrder.size()==1){
+        if (!isOneWay && preReserve.size()==1){
             titleOfResult.setText("Выберите билет - обратно");
             fillSearchResult(listBackward);
         }
@@ -130,7 +126,7 @@ public class TicketSaleController implements SearchableTicketScreen {
             titleOfResult.setText("Выберите билет - туда");
             if (listForward!=null) listForward.clear();
             if (listBackward!=null) listBackward.clear();
-            preOrder.clear();
+            preReserve.clear();
             isOneWay = oneWay.isSelected();
             //Конец подготовки
 
@@ -147,8 +143,8 @@ public class TicketSaleController implements SearchableTicketScreen {
             PlaceClass pc = serviceClass.getSelectionModel().getSelectedItem();
 
             try {
-               listForward = searchInDB(fromCity,toCity,dateSQL,pc);
-               if(bothWays.isSelected()) listBackward = searchInDB(toCity,fromCity,dateBSQL,pc);
+                listForward = searchInDB(fromCity,toCity,dateSQL,pc);
+                if(bothWays.isSelected()) listBackward = searchInDB(toCity,fromCity,dateBSQL,pc);
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }

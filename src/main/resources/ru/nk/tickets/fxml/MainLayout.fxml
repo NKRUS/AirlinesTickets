@@ -43,7 +43,7 @@
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#sellTicket" text="Продажа билета" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <Button layoutX="54.0" layoutY="53.0" mnemonicParsing="false" text="Бронирование" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0" />
+                                    <Button onAction="#reserveTicket" layoutX="54.0" layoutY="53.0" mnemonicParsing="false" text="Бронирование" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -64,7 +64,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Button layoutX="55.0" layoutY="14.0" mnemonicParsing="false" text="Архив пассажиров" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Button onAction="#passengersArchive" layoutX="55.0" layoutY="14.0" mnemonicParsing="false" text="Архив пассажиров" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children></AnchorPane>
                         </content>
                       </TitledPane>

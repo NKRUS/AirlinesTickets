@@ -22,7 +22,7 @@ import java.sql.SQLException;
 public class SearchedTicketBlockController {
     private Flight flight;
     private PriceAndPlace priceAndPlace;
-    private TicketSaleController ticketSaleController;
+    private SearchableTicketScreen searchableTicketScreen;
 
     @FXML
     private Button choose;
@@ -90,15 +90,15 @@ public class SearchedTicketBlockController {
         FlightSearchResult fsr = new FlightSearchResult();
         fsr.setFlight(flight);
         fsr.setPrice_and_place(priceAndPlace);
-        ticketSaleController.addToOrder(fsr);
+        searchableTicketScreen.addToOrder(fsr);
 
 
 
 
     }
 
-    public void setParentController(TicketSaleController ticketSaleController){
-        this.ticketSaleController = ticketSaleController;
+    public void setParentController(SearchableTicketScreen searchableTicketScreen){
+        this.searchableTicketScreen = searchableTicketScreen;
     }
 
 }

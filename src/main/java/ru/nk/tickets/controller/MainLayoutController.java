@@ -20,7 +20,7 @@ public class MainLayoutController  {
     ScreensController myController;
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         myController =  new ScreensController();
         myController.setContentScreen(mainContent);
     }
@@ -47,6 +47,26 @@ public class MainLayoutController  {
             myController.loadScreen(Main.LOOK_FOR_SEAT_SCREEN,
                     Main.LOOK_FOR_SEAT_SCREEN_FXML);
             myController.setScreen(Main.LOOK_FOR_SEAT_SCREEN);
+        }
+    }
+
+    @FXML
+    private void passengersArchive(){
+        if(!currentScreen.equals(Main.PASSENGERS_ARCHIVE)) {
+            currentScreen = Main.PASSENGERS_ARCHIVE;
+            myController.loadScreen(Main.PASSENGERS_ARCHIVE,
+                    Main.PASSENGERS_ARCHIVE_FXML);
+            myController.setScreen(Main.PASSENGERS_ARCHIVE);
+        }
+    }
+
+    @FXML
+    private void reserveTicket(){
+        if(!currentScreen.equals(Main.RESERVE_SCREEN)) {
+            currentScreen = Main.RESERVE_SCREEN;
+            myController.loadScreen(Main.RESERVE_SCREEN,
+                    Main.RESERVE_SCREEN_FXML);
+            myController.setScreen(Main.RESERVE_SCREEN);
         }
     }
 

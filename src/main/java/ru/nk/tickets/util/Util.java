@@ -82,6 +82,12 @@ public class Util {
         return text;
     }
 
+    public static String dateToTicketString(Date date){
+        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        String text = df.format(date);
+        return text;
+    }
+
     public static String timeToString(Time time){
         Date myDate = new Date(time.getTime());
         DateFormat df = new SimpleDateFormat("HH:mm");
