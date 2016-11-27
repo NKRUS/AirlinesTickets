@@ -43,7 +43,7 @@
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#sellTicket" text="Продажа билета" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <Button onAction="#reserveTicket" layoutX="54.0" layoutY="53.0" mnemonicParsing="false" text="Бронирование" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0" />
+                                    <Button layoutX="54.0" layoutY="53.0" mnemonicParsing="false" onAction="#reserveTicket" text="Бронирование" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -52,11 +52,8 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Button layoutX="34.0" layoutY="14.0" mnemonicParsing="false" onAction="#lookForSeat" text="Поиск места на рейс" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <Button layoutX="19.6" layoutY="54.6" mnemonicParsing="false" prefHeight="43.0" prefWidth="179.0" text="Получение списка свободных мест на рейс" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0" />
-                                    <Button layoutX="10.0" layoutY="105.0" mnemonicParsing="false" text="Подробная информация о рейсе" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="87.0" />
-                                    <Button layoutX="10.0" layoutY="164.0" mnemonicParsing="false" text="Список проданных мест" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0" />
-                                    <Button layoutX="73.0" layoutY="185.0" mnemonicParsing="false" text="Проверка наличия брони" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="175.0" />
+                                    <Button onAction="#soldList" layoutX="34.0" layoutY="14.0" mnemonicParsing="false" text="Список проданных мест" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Button onAction="#searchReserve" layoutX="19.6" layoutY="54.6" mnemonicParsing="false" prefHeight="43.0" prefWidth="179.0" text="Проверка наличия брони" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0" />
                                  </children></AnchorPane>
                         </content>
                       </TitledPane>
@@ -64,7 +61,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Button onAction="#passengersArchive" layoutX="55.0" layoutY="14.0" mnemonicParsing="false" text="Архив пассажиров" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Button layoutX="55.0" layoutY="14.0" mnemonicParsing="false" onAction="#passengersArchive" text="Архив пассажиров" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children></AnchorPane>
                         </content>
                       </TitledPane>

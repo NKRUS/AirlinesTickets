@@ -21,12 +21,8 @@ public class FlightDAO {
 
         try {
             ResultSet rsCts = DBUtil.dbExecuteQuery(selectStmt);
-            ObservableList<FlightSearchResult> flightSearchResultList = getFlightSearchResultList(rsCts);
-            return flightSearchResultList;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
-        } catch (ClassNotFoundException e) {
+            return getFlightSearchResultList(rsCts);
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             throw e;
         }

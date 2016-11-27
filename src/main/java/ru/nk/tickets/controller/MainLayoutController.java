@@ -41,16 +41,6 @@ public class MainLayoutController  {
     }
 
     @FXML
-    private void lookForSeat(){
-        if(!currentScreen.equals(Main.LOOK_FOR_SEAT_SCREEN)) {
-            currentScreen = Main.LOOK_FOR_SEAT_SCREEN;
-            myController.loadScreen(Main.LOOK_FOR_SEAT_SCREEN,
-                    Main.LOOK_FOR_SEAT_SCREEN_FXML);
-            myController.setScreen(Main.LOOK_FOR_SEAT_SCREEN);
-        }
-    }
-
-    @FXML
     private void passengersArchive(){
         if(!currentScreen.equals(Main.PASSENGERS_ARCHIVE)) {
             currentScreen = Main.PASSENGERS_ARCHIVE;
@@ -67,6 +57,25 @@ public class MainLayoutController  {
             myController.loadScreen(Main.RESERVE_SCREEN,
                     Main.RESERVE_SCREEN_FXML);
             myController.setScreen(Main.RESERVE_SCREEN);
+        }
+    }
+    @FXML
+    private void soldList(){
+        if(!currentScreen.equals(Main.SOLD_LIST)) {
+            currentScreen = Main.SOLD_LIST;
+            myController.loadScreen(Main.SOLD_LIST,
+                    Main.SOLD_LIST_FXML);
+            myController.setScreen(Main.SOLD_LIST);
+        }
+    }
+
+    @FXML
+    private void searchReserve(){
+        if(!currentScreen.equals(Main.SEARCH_RESERVE)) {
+            currentScreen = Main.SEARCH_RESERVE;
+            myController.loadScreen(Main.SEARCH_RESERVE,
+                    Main.SEARCH_RESERVE_FXML);
+            myController.setScreen(Main.SEARCH_RESERVE);
         }
     }
 

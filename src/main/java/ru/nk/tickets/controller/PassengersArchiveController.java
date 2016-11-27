@@ -28,11 +28,6 @@ public class PassengersArchiveController {
             dateOfBirthColumn,documentTypeColumn,documentNumberColumn;
 
 
-    public PassengersArchiveController(){
-
-
-    }
-
     @FXML
     private void initialize() {
         try {

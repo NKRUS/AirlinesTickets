@@ -59,7 +59,7 @@ public class ReserveController implements SearchableTicketScreen {
     }
 
     @Override
-    public void addToOrder(FlightSearchResult flightSearchResult){ //TODO Продолжение брони
+    public void addToOrder(FlightSearchResult flightSearchResult){
         preReserve.add(flightSearchResult);
 
         if((isOneWay && preReserve.size()==1)||(!isOneWay && preReserve.size()==2)){

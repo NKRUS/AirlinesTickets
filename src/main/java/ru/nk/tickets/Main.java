@@ -16,9 +16,6 @@ import ru.nk.tickets.controller.ScreensController;
 public class Main extends Application {
     public static final String MAIN_SCREEN = "MainLayout";
     public static final String MAIN_SCREEN_FXML = "/ru/nk/tickets/fxml/MainLayout.fxml";
-    public static final String LOOK_FOR_SEAT_SCREEN = "LookForSeat";
-    public static final String LOOK_FOR_SEAT_SCREEN_FXML =
-            "/ru/nk/tickets/fxml/LookForSeat.fxml";
     public static final String TICKET_SALE_SCREEN = "TicketSale";
     public static final String TICKET_SALE_SCREEN_FXML =
             "/ru/nk/tickets/fxml/TicketSale.fxml";
@@ -35,6 +32,10 @@ public class Main extends Application {
     public static final String RESERVE_INFORMATION_ADDING_FXML = "/ru/nk/tickets/fxml/ReserveInformationAdding.fxml";
     public static final String RESERVE_RESULT_FXML = "/ru/nk/tickets/fxml/ReserveResult.fxml";
     public static final String RESERVE_RESULT = "ReserveResult";
+    public static final String SOLD_LIST = "SoldList";
+    public static final String SOLD_LIST_FXML = "/ru/nk/tickets/fxml/SoldList.fxml";
+    public static final String SEARCH_RESERVE = "SearchReserve";
+    public static final String SEARCH_RESERVE_FXML = "/ru/nk/tickets/fxml/SearchReserve.fxml";
     public static MainLayoutController controller;
 
     public static void main(String[] args) {
