@@ -36,6 +36,8 @@ public class Main extends Application {
     public static final String SOLD_LIST_FXML = "/ru/nk/tickets/fxml/SoldList.fxml";
     public static final String SEARCH_RESERVE = "SearchReserve";
     public static final String SEARCH_RESERVE_FXML = "/ru/nk/tickets/fxml/SearchReserve.fxml";
+    public static final String FLIGHT_OPERATE = "FlightsOperate";
+    public static final String FLIGHT_OPERATE_FXML = "/ru/nk/tickets/fxml/FlightsOperate.fxml";
     public static MainLayoutController controller;
 
     public static void main(String[] args) {

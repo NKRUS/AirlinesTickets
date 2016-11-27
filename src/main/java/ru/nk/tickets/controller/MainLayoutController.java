@@ -79,6 +79,16 @@ public class MainLayoutController  {
         }
     }
 
+    @FXML
+    private void flightsAdding(){
+        if(!currentScreen.equals(Main.FLIGHT_OPERATE)) {
+            currentScreen = Main.FLIGHT_OPERATE;
+            myController.loadScreen(Main.FLIGHT_OPERATE,
+                    Main.FLIGHT_OPERATE_FXML);
+            myController.setScreen(Main.FLIGHT_OPERATE);
+        }
+    }
+
 
     //any required method here
 }

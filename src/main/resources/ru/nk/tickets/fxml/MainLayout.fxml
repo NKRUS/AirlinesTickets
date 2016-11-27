@@ -52,8 +52,8 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Button onAction="#soldList" layoutX="34.0" layoutY="14.0" mnemonicParsing="false" text="Список проданных мест" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <Button onAction="#searchReserve" layoutX="19.6" layoutY="54.6" mnemonicParsing="false" prefHeight="43.0" prefWidth="179.0" text="Проверка наличия брони" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0" />
+                                    <Button layoutX="34.0" layoutY="14.0" mnemonicParsing="false" onAction="#soldList" text="Список проданных мест" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Button layoutX="19.6" layoutY="54.6" mnemonicParsing="false" onAction="#searchReserve" prefHeight="43.0" prefWidth="179.0" text="Проверка наличия брони" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0" />
                                  </children></AnchorPane>
                         </content>
                       </TitledPane>
@@ -62,6 +62,7 @@
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <Button layoutX="55.0" layoutY="14.0" mnemonicParsing="false" onAction="#passengersArchive" text="Архив пассажиров" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Button onAction="#flightsAdding" layoutX="73.0" layoutY="49.0" mnemonicParsing="false" text="Добавление рейсов" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0" />
                                  </children></AnchorPane>
                         </content>
                       </TitledPane>

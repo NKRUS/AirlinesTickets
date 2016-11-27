@@ -54,4 +54,9 @@ public class Airline {
     public void setShort_name(String short_name) {
         this.short_name.set(short_name);
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
