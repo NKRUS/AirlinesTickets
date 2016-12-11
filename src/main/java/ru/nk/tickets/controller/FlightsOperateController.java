@@ -20,7 +20,6 @@ import ru.nk.tickets.util.Util;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * Created by NK on 27.11.2016.

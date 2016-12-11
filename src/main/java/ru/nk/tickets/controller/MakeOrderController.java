@@ -3,6 +3,7 @@ package ru.nk.tickets.controller;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -21,11 +22,12 @@ import java.util.ArrayList;
  */
 public class MakeOrderController {
 
+    private ObservableList<FlightSearchResult> preOrder = FXCollections.observableArrayList();
     private ObservableList<Document> documents;
     public static ArrayList<Passenger> passengerArrayList  = new ArrayList<>();
     public static ArrayList<Order> orderArrayList = new ArrayList<>();
     public static ArrayList<OrderDetails> orderDetailsArrayList = new ArrayList<>();
-
+    public static boolean isBuyingAfterReserve = false;
 
     @FXML
     private TextField surnameTextField, nameTextField, patronymicTextField, documentNumberTextField, organizationTextField,
@@ -37,7 +39,7 @@ public class MakeOrderController {
     @FXML
     private DatePicker dateOfBirthDatPicker;
     @FXML
-    private TableView orderTable;
+    private TableView<FlightSearchResult> orderTable;
     @FXML
     private TableColumn<FlightSearchResult, String> flightNumberColumn, fromCityColumn, toCityColumn, departureDateTimeColumn,
             arrivalDateTimeColumn, serviceClassColumn, aviacompanyColumn;
@@ -46,10 +48,22 @@ public class MakeOrderController {
     @FXML
     private Button acceptButton;
 
-
     @FXML
     private void initialize() {
-        orderTable.setItems(TicketSaleController.preOrder);
+        if(!isBuyingAfterReserve){
+            this.preOrder = TicketSaleController.preOrder;
+        }else {
+            this.preOrder = SearchReserveController.preOrder;
+            surnameTextField.setText(SearchReserveController.reservedOrder.getSurname());
+            nameTextField.setText(SearchReserveController.reservedOrder.getName());
+            documentNumberTextField.setText(SearchReserveController.reservedOrder.getDocument_number());
+            organizationTextField.setText(SearchReserveController.reservedOrder.getOrganization_name());
+            phoneTextField.setText(SearchReserveController.reservedOrder.getPhone_number());
+            emailTextField.setText(SearchReserveController.reservedOrder.getEmail());
+            documentTypeComboBox.getSelectionModel().select(SearchReserveController.reservedOrder.getDocument_id());
+        }
+
+        orderTable.setItems(this.preOrder);
         initUI();
         initTableView();
     }
@@ -58,9 +72,7 @@ public class MakeOrderController {
         //Combobox - init----
         if (documents == null) try {
             documents = DocumentDAO.getDocuments();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         documentTypeComboBox.setItems(documents);
@@ -124,7 +136,7 @@ public class MakeOrderController {
         orderArrayList.clear();
         orderDetailsArrayList.clear();
         if (beforeAcceptCheck()) {
-            for (FlightSearchResult flightSearchResult : TicketSaleController.preOrder) {
+            for (FlightSearchResult flightSearchResult : preOrder) {
                 Passenger passenger = new Passenger();
                 passenger.setName(nameTextField.getText());
                 passenger.setSurname(surnameTextField.getText());
@@ -158,7 +170,10 @@ public class MakeOrderController {
                 orderDetails.setNumber_of_tickets(1);
 
                 try {
-                    OrderDAO.acceptOrder(order, orderDetails, passenger);
+                    if(!isBuyingAfterReserve){
+                        OrderDAO.acceptOrder(order, orderDetails, passenger, flightSearchResult);
+                    }else OrderDAO.acceptOrderAfterReserve(SearchReserveController.reservedOrder.getOrder_id(),passenger, flightSearchResult);
+
                 } catch (SQLException | ClassNotFoundException e) {
                     e.printStackTrace();
                     Util.showAlert(Alert.AlertType.ERROR, "Ошибка", null, "Не удалось занести информацию о заказе в базу данных");

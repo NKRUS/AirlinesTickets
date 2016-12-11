@@ -126,4 +126,33 @@ public class FlightDAO {
         }
         return fsrl;
     }
+
+    public static Flight getFlightById(int id) throws SQLException, ClassNotFoundException {
+        String selectStmt = "SELECT * FROM flights WHERE id="+id;
+
+        try{
+            ResultSet rsFlight = DBUtil.dbExecuteQuery(selectStmt);
+            Flight flight = getFlightFromResultSet(rsFlight);
+            return flight;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    private static Flight getFlightFromResultSet(ResultSet rs) throws SQLException {
+        Flight flight = null;
+        if (rs.next()){
+            flight = new Flight();
+            flight.setFlight_id(rs.getInt("id"));
+            flight.setFlight_number(rs.getString("flight_number"));
+            flight.setAirlines_id(rs.getInt("airlines_id"));
+            flight.setDeparture_city_id(rs.getInt("departure_city_id"));
+            flight.setArrival_city_id(rs.getInt("arrival_city_id"));
+            flight.setDeparture_date((Date) rs.getObject("departure_date"));
+            flight.setDeparture_time((Time) rs.getObject("departure_time"));
+            flight.setArrival_date((Date) rs.getObject("arrival_date"));
+            flight.setArrival_time((Time) rs.getObject("arrival_time"));
+        }
+        return flight;
+    }
 }

@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class TicketMaker {
     public static void makeTicket(Passenger passenger, FlightSearchResult flightSearchResult) throws IOException {
-        String name = passenger.getSurname() +"."+passenger.getName().substring(0,1)+"."+passenger.getSurname().substring(0,1);
+        String name = passenger.getSurname() +"."+passenger.getName().substring(0,1)+"."+passenger.getPatronymic().substring(0,1);
         String date = Util.dateToTicketString(flightSearchResult.getFlight().getDeparture_date());
         String time = Util.timeToString(flightSearchResult.getFlight().getDeparture_time());
         String from = "";

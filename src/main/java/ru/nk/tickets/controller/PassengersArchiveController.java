@@ -9,6 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import ru.nk.tickets.dao.DocumentDAO;
 import ru.nk.tickets.dao.PassengerDAO;
+import ru.nk.tickets.model.ArchivePassenger;
 import ru.nk.tickets.model.Passenger;
 import ru.nk.tickets.util.Util;
 
@@ -19,13 +20,13 @@ import java.sql.SQLException;
  */
 public class PassengersArchiveController {
 
-    public static ObservableList<Passenger> passengers = FXCollections.observableArrayList();
+    public static ObservableList<ArchivePassenger> passengers = FXCollections.observableArrayList();
 
     @FXML
-    private TableView<Passenger> archiveTable;
+    private TableView<ArchivePassenger> archiveTable;
     @FXML
-    private TableColumn<Passenger, String> idColumn, surnameColumn, nameColumn, patronymicColumn,genderColumn,
-            dateOfBirthColumn,documentTypeColumn,documentNumberColumn;
+    private TableColumn<ArchivePassenger, String> surnameColumn, nameColumn, patronymicColumn,genderColumn,
+            dateOfBirthColumn,documentTypeColumn,documentNumberColumn, flightTableColumn, departureDateTableColumn;
 
 
     @FXML
@@ -41,20 +42,23 @@ public class PassengersArchiveController {
 
     private void initTable(){
         archiveTable.setItems(passengers);
-        idColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(String.valueOf(param.getValue().getPassenger_id())));
-        surnameColumn.setCellValueFactory(param -> param.getValue().surnameProperty());
-        nameColumn.setCellValueFactory(param -> param.getValue().nameProperty());
-        patronymicColumn.setCellValueFactory(param -> param.getValue().patronymicProperty());
-        genderColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue().isIsMan()?"Мужчина":"Женщина"));
-        dateOfBirthColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(Util.dateToTicketString(param.getValue().getDate_of_birth())));
+        surnameColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue().getPassenger().getSurname()) );
+        nameColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue().getPassenger().getName()) );
+        patronymicColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue().getPassenger().getPatronymic()));
+        genderColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue().getPassenger().isIsMan()?"Мужчина":"Женщина"));
+        dateOfBirthColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(Util.dateToTicketString(param.getValue().getPassenger().getDate_of_birth())));
         documentTypeColumn.setCellValueFactory(param -> {
             try {
-                return new ReadOnlyStringWrapper(DocumentDAO.getDocuments().get(param.getValue().getDocument_id()-1).getDocument_type());
+                return new ReadOnlyStringWrapper(DocumentDAO.getDocuments().get(param.getValue().getPassenger().getDocument_id()-1).getDocument_type());
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
                 return null;
             }
         });
-        documentNumberColumn.setCellValueFactory(param -> param.getValue().document_numberProperty());
+        documentNumberColumn.setCellValueFactory(param -> param.getValue().getPassenger().document_numberProperty());
+        flightTableColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue().getAirline()+ " " +param.getValue().getFlight_number() + " " + param.getValue().getDeparture_city()
+        + " - " + param.getValue().getArrival_city()));
+        departureDateTableColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(Util.dateToTicketString(param.getValue().getDeparture_date())));
+
     }
 }

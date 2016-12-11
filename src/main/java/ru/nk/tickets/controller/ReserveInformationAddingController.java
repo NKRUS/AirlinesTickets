@@ -32,7 +32,6 @@ public class ReserveInformationAddingController {
     private ObservableList<Document> documents;
     public static ArrayList<Order> orderArrayList = new ArrayList<>();
     public static ArrayList<OrderDetails> orderDetailsArrayList = new ArrayList<>();
-    private static int ticketsCount[] = {1,1};
 
     @FXML
     private TextField surnameTextField, nameTextField, documentNumberTextField, organizationTextField,
@@ -126,23 +125,7 @@ public class ReserveInformationAddingController {
 
         priceColumn.setEditable(false);
         priceColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getPrice_and_place().getPrice()));
-
-
-        ObservableList<String> levelChoice = FXCollections.observableArrayList();
-        countColumn.setCellValueFactory(param -> {
-            int max = param.getValue().getPrice_and_place().getFree_places_count();
-            for (int i = 1; i <= max; i++) {
-                levelChoice.add(String.valueOf(i));
-            }
-            return new ReadOnlyStringWrapper("1");
-        });
-        countColumn.setCellFactory(ComboBoxTableCell.forTableColumn(levelChoice));
-        countColumn.setOnEditCommit(
-                t -> {
-                    ticketsCount[t.getTablePosition().getRow()] = Integer.valueOf(t.getNewValue());
-                    ((FlightSearchResult) t.getTableView().getItems().get(t.getTablePosition().getRow())).toString();
-                }
-        );
+        countColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper("1"));
 
     }
 
@@ -172,7 +155,7 @@ public class ReserveInformationAddingController {
                     e.printStackTrace();
                 }
                 orderDetails.setClass_id(flightSearchResult.getPrice_and_place().getClass_id());
-                orderDetails.setNumber_of_tickets(ticketsCount[counter]);
+                orderDetails.setNumber_of_tickets(1);
 
                 try {
                     OrderDAO.acceptReserve(order, orderDetails);

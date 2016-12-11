@@ -24,7 +24,8 @@
       </HBox>
       <TableView fx:id="archiveTable" layoutY="16.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="210.0" prefWidth="291.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
         <columns>
-            <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="flightTableColumn" prefWidth="75.0" text="Рейс" />
+            <TableColumn fx:id="departureDateTableColumn" prefWidth="75.0" text="Дата вылета" />
           <TableColumn fx:id="surnameColumn" prefWidth="75.0" text="Фамилия" />
           <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Имя" />
             <TableColumn fx:id="patronymicColumn" prefWidth="75.0" text="Отчество" />

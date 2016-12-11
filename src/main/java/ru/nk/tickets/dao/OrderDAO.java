@@ -16,7 +16,7 @@ import java.sql.Time;
  */
 public class OrderDAO {
 
-    public static void acceptOrder(Order order, OrderDetails orderDetails, Passenger passenger) throws SQLException, ClassNotFoundException {
+    public static void acceptOrder(Order order, OrderDetails orderDetails, Passenger passenger, FlightSearchResult flightSearchResult) throws SQLException, ClassNotFoundException {
         String[] queries = {
                 "INSERT INTO orders(surname,name,organization_name,phone_number,email,payed,document_id,document_number)\n" +
                         "VALUES('"+order.getSurname()+"','"+order.getName()+"',"+(order.getOrganization_name()==null?null:"'"+order.getOrganization_name()+"'")+","
@@ -30,10 +30,12 @@ public class OrderDAO {
                         +"','"+passenger.getName()+"','"+passenger.getPatronymic()+"',"+passenger.isIsMan()+",'"+passenger.getDate_of_birth()+"',"+passenger.getDocument_id()+
                         ",'"+passenger.getDocument_number()+"');",
                 "INSERT INTO passengers_archive (order_id, flight_id, class_id, surname, name, patronymic, gender, \n" +
-                        "date_of_birth, document_id, document_number)\n" +
+                        "date_of_birth, document_id, document_number, flight_number, airline, departure_city, arrival_city, departure_date)\n" +
                         "VALUES ("+passenger.getOrder_id()+","+passenger.getFlight_id()+","+passenger.getClass_id()+",'"+passenger.getSurname()
                         +"','"+passenger.getName()+"','"+passenger.getPatronymic()+"',"+passenger.isIsMan()+",'"+passenger.getDate_of_birth()+"',"+passenger.getDocument_id()+
-                        ",'"+passenger.getDocument_number()+"');",
+                        ",'"+passenger.getDocument_number()+"','"+flightSearchResult.getFlight().getFlight_number()+"','"+AirlineDAO.getAirlineById(flightSearchResult.getFlight().getAirlines_id())
+                        +"','"+CityDAO.getCityById(flightSearchResult.getFlight().getDeparture_city_id())+"','"+CityDAO.getCityById(flightSearchResult.getFlight().getArrival_city_id())
+                        +"','"+flightSearchResult.getFlight().getDeparture_date()+"');",
                 "UPDATE prices_and_places \n" +
                         "SET free_places_count = free_places_count - 1\n" +
                         "WHERE flight_id="+passenger.getFlight_id()+" AND class_id="+orderDetails.getClass_id()+";"
@@ -53,6 +55,37 @@ public class OrderDAO {
             throw e;
         }
 
+    }
+    public static void acceptOrderAfterReserve(int order_id,Passenger passenger, FlightSearchResult flightSearchResult) throws SQLException, ClassNotFoundException {
+        String[] queries = {
+                "UPDATE orders SET payed=true WHERE id="+order_id+";",
+                "INSERT INTO passengers (order_id, flight_id, class_id, surname, name, patronymic, gender, \n" +
+                        "date_of_birth, document_id, document_number)\n" +
+                        "VALUES ("+order_id+","+passenger.getFlight_id()+","+passenger.getClass_id()+",'"+passenger.getSurname()
+                        +"','"+passenger.getName()+"','"+passenger.getPatronymic()+"',"+passenger.isIsMan()+",'"+passenger.getDate_of_birth()+"',"+passenger.getDocument_id()+
+                        ",'"+passenger.getDocument_number()+"');",
+                "INSERT INTO passengers_archive (order_id, flight_id, class_id, surname, name, patronymic, gender, \n" +
+                        "date_of_birth, document_id, document_number, flight_number, airline, departure_city, arrival_city, departure_date)\n" +
+                        "VALUES ("+order_id+","+passenger.getFlight_id()+","+passenger.getClass_id()+",'"+passenger.getSurname()
+                        +"','"+passenger.getName()+"','"+passenger.getPatronymic()+"',"+passenger.isIsMan()+",'"+passenger.getDate_of_birth()+"',"+passenger.getDocument_id()+
+                        ",'"+passenger.getDocument_number()+"','"+flightSearchResult.getFlight().getFlight_number()+"','"+AirlineDAO.getAirlineById(flightSearchResult.getFlight().getAirlines_id())
+                        +"','"+CityDAO.getCityById(flightSearchResult.getFlight().getDeparture_city_id())+"','"+CityDAO.getCityById(flightSearchResult.getFlight().getArrival_city_id())
+                        +"','"+flightSearchResult.getFlight().getDeparture_date()+"');"
+
+
+        };
+        System.out.println(queries[0]);
+        System.out.println(queries[1]);
+        System.out.println(queries[2]);
+
+        try {
+            for (String query :queries) {
+                DBUtil.dbExecuteUpdate(query);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     public static void acceptReserve(Order order, OrderDetails orderDetails) throws SQLException, ClassNotFoundException{
@@ -143,9 +176,21 @@ public class OrderDAO {
         return soldTicketsList;
     }
 
-    public static ObservableList<Order> searchReserve(String surname, String organization) throws SQLException, ClassNotFoundException {
+    public static ObservableList<ReservedTickets> searchReserve(String surname, String organization) throws SQLException, ClassNotFoundException {
         String select = "";
-        if(surname!=null && organization!=null){
+        select = "SELECT orders.*, flights.flight_number, flights.departure_city_id, flights.arrival_city_id, flights.departure_date, airlines.name AS airline \n" +
+                "FROM avia.orders\n" +
+                "INNER JOIN order_details\n" +
+                "ON orders.id=order_details.order_id\n" +
+                "INNER JOIN flights\n" +
+                "ON order_details.flight_id=flights.id\n" +
+                "INNER JOIN airlines\n" +
+                "ON flights.airlines_id=airlines.id\n" +
+                "WHERE payed=false "+(surname!=null? " AND surname = '"+surname+"'":"")+ (organization!=null?" AND organization_name='"+organization+"'" :"")+
+                " ORDER BY flights.flight_number;";
+
+
+        /*if(surname!=null && organization!=null){
             select = "SELECT * FROM orders\n" +
                     "WHERE surname = '"+surname+"' AND organization_name = '"+organization+"' AND payed=false;";
         }else if(surname != null){
@@ -155,7 +200,7 @@ public class OrderDAO {
             select = "SELECT * FROM orders\n" +
                     "WHERE organization_name = '"+organization+"' AND payed=false;";
         }
-
+*/
         try {
             ResultSet rsR = DBUtil.dbExecuteQuery(select);
             return getOrderSearchResultList(rsR);
@@ -163,12 +208,14 @@ public class OrderDAO {
             e.printStackTrace();
             throw e;
         }
+
     }
 
-    private static ObservableList<Order> getOrderSearchResultList(ResultSet rsR) throws SQLException {
-        ObservableList<Order> oOL = FXCollections.observableArrayList();
+    private static ObservableList<ReservedTickets> getOrderSearchResultList(ResultSet rsR) throws SQLException, ClassNotFoundException {
+        ObservableList<ReservedTickets> oOL = FXCollections.observableArrayList();
 
         while (rsR.next()){
+            ReservedTickets reservedTickets = new ReservedTickets();
             Order order = new Order();
             order.setOrder_id(rsR.getInt("id"));
             order.setSurname(rsR.getString("surname"));
@@ -179,9 +226,46 @@ public class OrderDAO {
             order.setPayed(rsR.getBoolean("payed"));
             order.setDocument_id(rsR.getInt("document_id"));
             order.setDocument_number(rsR.getString("document_number"));
-            oOL.add(order);
+            reservedTickets.setOrder(order);
+
+            for (int i = 1; i <= rsR.getMetaData().getColumnCount(); i++) {
+                System.out.println(rsR.getMetaData().getColumnName(i));
+            }
+            reservedTickets.setFlight_number(rsR.getString("flight_number"));
+            reservedTickets.setDeparture_city(CityDAO.getCityById(rsR.getInt("departure_city_id")).getCity());
+            reservedTickets.setArrival_city(CityDAO.getCityById(rsR.getInt("arrival_city_id")).getCity());
+            reservedTickets.setDeparture_date((Date) rsR.getObject("departure_date"));
+            reservedTickets.setAirline(rsR.getString(rsR.getMetaData().getColumnCount()));
+
+            oOL.add(reservedTickets);
         }
         return oOL;
+    }
+
+    private static OrderDetails getOrderDetailsFromResultSet(ResultSet rs) throws SQLException {
+        OrderDetails orderDetails = null;
+        if (rs.next()){
+            orderDetails = new OrderDetails();
+            orderDetails.setId(rs.getInt("id"));
+            orderDetails.setOrder_id(rs.getInt("order_id"));
+            orderDetails.setFlight_id(rs.getInt("flight_id"));
+            orderDetails.setClass_id(rs.getInt("class_id"));
+            orderDetails.setNumber_of_tickets(rs.getInt("number_of_tickets"));
+        }
+        return orderDetails;
+    }
+
+    public static OrderDetails getOrderDetailsByOrderId(int order_id) throws SQLException, ClassNotFoundException {
+        String selectStmt = "SELECT * FROM order_details WHERE order_id="+order_id;
+
+        try{
+            ResultSet rsOrderDetails = DBUtil.dbExecuteQuery(selectStmt);
+            OrderDetails orderDetails = getOrderDetailsFromResultSet(rsOrderDetails);
+            return orderDetails;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
 

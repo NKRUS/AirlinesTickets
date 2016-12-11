@@ -67,6 +67,7 @@ public class TicketSaleController implements SearchableTicketScreen {
         preOrder.add(flightSearchResult);
 
         if((isOneWay && preOrder.size()==1)||(!isOneWay && preOrder.size()==2)){
+                MakeOrderController.isBuyingAfterReserve = false;
                 Main.controller.currentScreen = Main.MAKE_ORDER;
                 Main.controller.myController.loadScreen(Main.MAKE_ORDER,
                         Main.MAKE_ORDER_FXML);
