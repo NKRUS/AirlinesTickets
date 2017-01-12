@@ -251,11 +251,21 @@ public class FlightsOperateController {
 
         }else {
             Util.showAlert(Alert.AlertType.WARNING, "Внимание!", null, "Хотя бы в одном из классов должны быть укзаны места со стоимостью");
+            return false;
         }
         if (!Util.validateOnlyNumbers(economPlacesTextField.getText()) || !Util.validateOnlyNumbers(buissnesPlacesTextField.getText())
                 || !Util.validateOnlyNumbers(vipPlacesTextField.getText()) || !Util.validateOnlyNumbers(economPriceTextField.getText())
                 || !Util.validateOnlyNumbers(buissnesPriceTextField.getText()) || !Util.validateOnlyNumbers(vipPriceTextField.getText())) {
             Util.showAlert(Alert.AlertType.WARNING, "Внимание!", null, "Поля кол-ва мест и цен могут содержать только цифры");
+            return false;
+        }
+        try {
+            if(FlightDAO.isFlightExists(flightNumberTextField.getText())){
+                Util.showAlert(Alert.AlertType.WARNING, "Ошибка!", null, "Невозможно создать рейс, так как рейс с таким номером уже существует!");
+                return false;
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         return true;
