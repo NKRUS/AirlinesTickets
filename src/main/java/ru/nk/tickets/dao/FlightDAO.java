@@ -39,6 +39,18 @@ public class FlightDAO {
         }
     }
 
+    public static boolean isFlightExists(String flightNumber) throws SQLException, ClassNotFoundException {
+        String selectStmt = "SELECT * FROM flights WHERE flight_number='"+flightNumber+"';";
+        try {
+            ResultSet rsFlights = DBUtil.dbExecuteQuery(selectStmt);
+            if(getFlightList(rsFlights).size()!=0) return true;
+            return false;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
     public static void insertFlight(Flight flight) throws SQLException, ClassNotFoundException {
         String insertStmt = "INSERT INTO flights (flight_number, airlines_id, departure_city_id, arrival_city_id, departure_date, departure_time, arrival_date, arrival_time) \n" +
                 "VALUES ('" + flight.getFlight_number() + "', " + flight.getAirlines_id() + ", " + flight.getDeparture_city_id() + "," +
